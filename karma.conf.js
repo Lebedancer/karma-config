@@ -2,7 +2,7 @@
 const webpack = require('webpack'),
     path = require('path');
 
-module.exports = function(config, webpackConfig) {
+module.exports = function(config, staticDir) {
     return {
 
         files: [
@@ -23,9 +23,30 @@ module.exports = function(config, webpackConfig) {
 
         reporters: ['mocha'],
 
-        webpack: webpackConfig,
-        webpackServer: {
-            noInfo: true
+        webpack: {
+            module: {
+                rules: [
+                    {
+                        test: /\.js$/,
+                        loader: 'babel-loader',
+                        include: [
+                            path.resolve(__dirname, '../../@moedelo'),
+                            path.resolve(__dirname, staticDir || '../../../src/webStatic')
+                        ],
+                        query: {
+                            presets: [
+                                'react',
+                                ["es2015", { "modules": false }],
+                                'stage-0'
+                            ],
+                            plugins: ["transform-decorators-legacy", "transform-class-properties"]
+                        }
+                    },
+                    { test: /\.less$/, loader: 'null-loader' },
+                    { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'null-loader' },
+                    { test: /\.hbs$/, loader: 'handlebars-loader' }
+                ]
+            }
         },
 
         plugins: [
