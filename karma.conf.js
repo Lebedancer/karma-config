@@ -2,12 +2,11 @@
 const webpack = require('webpack'),
     path = require('path');
 
-module.exports = function(config, staticDir) {
+module.exports = function(config, options = {}) {
     return {
-
         files: [
             'node_modules/babel-polyfill/dist/polyfill.min.js',
-            '**/*.test.js'
+            'src/webStatic/**/*.test.js'
         ],
 
         exclude: ['**/node_modules/**/*.test.js'],
@@ -18,7 +17,7 @@ module.exports = function(config, staticDir) {
         singleRun: true,
 
         preprocessors: {
-            '**/*.test.js': ['webpack']
+            'src/webStatic/**/*.test.js': ['webpack']
         },
 
         reporters: ['mocha'],
@@ -31,7 +30,7 @@ module.exports = function(config, staticDir) {
                         loader: 'babel-loader',
                         include: [
                             path.resolve(__dirname, '../../@moedelo'),
-                            path.resolve(__dirname, staticDir || '../../../src/webStatic')
+                            options.staticDir || path.resolve(__dirname, '../../../src/webStatic')
                         ],
                         query: {
                             presets: [
