@@ -36,7 +36,8 @@ module.exports = function(config, options = {}) {
                             presets: [
                                 'react',
                                 ["es2015", { "modules": false }],
-                                'stage-0'
+                                'stage-0',
+                                'airbnb'
                             ],
                             plugins: ["transform-decorators-legacy", "transform-class-properties"]
                         }
@@ -45,6 +46,12 @@ module.exports = function(config, options = {}) {
                     { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'null-loader' },
                     { test: /\.hbs$/, loader: 'handlebars-loader' }
                 ]
+            },
+            externals: {
+                cheerio: 'window',
+                'react/addons': true,
+                'react/lib/ExecutionEnvironment': true,
+                'react/lib/ReactContext': true
             }
         },
 
