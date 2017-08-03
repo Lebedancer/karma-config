@@ -1,5 +1,6 @@
 /*global require*/
-module.exports = function(config) {
+
+module.exports = function(config, options = {}) {
     return {
         files: [
             'node_modules/babel-polyfill/dist/polyfill.min.js',
@@ -22,28 +23,23 @@ module.exports = function(config) {
 
         webpack: {
             module: {
-                rules: [
+                devtool: 'inline-source-map',
+                loaders: [
                     {
                         test: /\.js$/,
-                        loader: 'babel-loader',
+                        loader: 'babel',
                         exclude: /node_modules(?!\/@moedelo)/,
                         query: {
-                            presets: [
-                                'react',
-                                ["es2015", { "modules": false }],
-                                'stage-0',
-                                'airbnb'
-                            ],
-                            plugins: ["transform-decorators-legacy", "transform-class-properties"]
+                            presets: [require.resolve('babel-preset-es2015'), require.resolve('babel-preset-react')], //
+                            plugins: ['transform-class-properties']
                         }
                     },
-                    { test: /\.json$/, loader: 'json' },
                     { test: /\.less$/, loader: 'null-loader' },
                     { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'null-loader' },
                     { test: /\.hbs$/, loader: 'handlebars-loader' }
-                ],
-
+                ]
             },
+
             externals: {
                 cheerio: 'window',
                 'react/addons': true,

@@ -1,7 +1,6 @@
 {
   "name": "karma-config",
   "version": "0.3.3",
-  "readme": "original: https://github.com/Ineigo/karma-es6-webpack-config.git",
   "description": "Готовая конфигурация для тестирования приложений beta",
   "main": "index.js",
   "repository": {
@@ -26,7 +25,6 @@
     "merge": "1.2.0",
     "mocha": "^3.4.2",
     "null-loader": "*",
-    "path": "0.12.7",
     "react-test-renderer": "^15.6.1",
     "requirejs": "^2.3.2",
     "sinon": "^2.4.0",
