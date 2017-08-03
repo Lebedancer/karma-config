@@ -30,7 +30,11 @@
     "react-test-renderer": "^15.6.1",
     "requirejs": "^2.3.2",
     "sinon": "^2.4.0",
-    "enzyme": "^2.9.1"
+    "enzyme": "^2.9.1",
+    "react-addons-test-utils": "^15.6.0",
+    "expect": "^1.20.2",
+    "expect-enzyme": "^1.1.1"
+
   },
   "license": "ISC",
   "author": "Ineigo Kira",

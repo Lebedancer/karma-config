@@ -6,6 +6,7 @@ module.exports = function(config, options = {}) {
     return {
         files: [
             'node_modules/babel-polyfill/dist/polyfill.min.js',
+            'node_modules/karma-config/test-setup.js',
             'src/webStatic/**/*.test.js'
         ],
 
@@ -28,10 +29,7 @@ module.exports = function(config, options = {}) {
                     {
                         test: /\.js$/,
                         loader: 'babel-loader',
-                        include: [
-                            path.resolve(__dirname, '../../@moedelo'),
-                            options.staticDir || path.resolve(__dirname, '../../../src/webStatic')
-                        ],
+                        exclude: /(node_modules|bower_components)/,
                         query: {
                             presets: [
                                 'react',
@@ -42,19 +40,24 @@ module.exports = function(config, options = {}) {
                             plugins: ["transform-decorators-legacy", "transform-class-properties"]
                         }
                     },
+                    { test: /\.json$/, loader: 'json' },
                     { test: /\.less$/, loader: 'null-loader' },
                     { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'null-loader' },
                     { test: /\.hbs$/, loader: 'handlebars-loader' }
-                ]
+                ],
+
             },
             externals: {
                 cheerio: 'window',
                 'react/addons': true,
                 'react/lib/ExecutionEnvironment': true,
-                'react/lib/ReactContext': true
+                'react/lib/ReactContext': true,
+                'react-addons-test-utils': 'react-dom'
             }
         },
-
+        webpackMiddleware: {
+            noInfo: true,
+        },
         plugins: [
             require('karma-teamcity-reporter'),
             require('karma-webpack'),
